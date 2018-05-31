@@ -13802,6 +13802,7 @@
         },
         STROKE_DASHARRAY = "stroke-dasharray",
         DASHSTYLE = "dashstyle",
+        STRAIGHTDASHSTYLE = "straightdashstyle",
         LINEAR_GRADIENT = "linearGradient",
         RADIAL_GRADIENT = "radialGradient",
         DEFS = "defs",
@@ -13895,7 +13896,7 @@
             var dashArray = [];
             var svgWidth= dimensions[2] // svg path length
             var sep = style[STRAIGHTDASHSTYLE].indexOf(",") === -1 ? " " : ",",
-            var  parts = style[STRAIGHTDASHSTYLE].split(sep),
+             parts = style[STRAIGHTDASHSTYLE].split(sep),
              straightLine = parseInt(parts[0]),
              dashLine= parseInt(parts[1]),
              dashSpace = parseInt(parts[2]);
