@@ -13802,6 +13802,7 @@
         },
         STROKE_DASHARRAY = "stroke-dasharray",
         DASHSTYLE = "dashstyle",
+        STRAIGHTDASHSTYLE = "straightdashstyle",
         LINEAR_GRADIENT = "linearGradient",
         RADIAL_GRADIENT = "radialGradient",
         DEFS = "defs",
@@ -13889,7 +13890,28 @@
             if (style.strokeWidth) {
                 node.setAttribute(STROKE_WIDTH, style.strokeWidth);
             }
+          // Function for straight line plus dashed line
+          // takes 3 values straightLine,dashLine,dashSpace
+          if (style[STRAIGHTDASHSTYLE] && style[LINE_WIDTH] && !style[STROKE_DASHARRAY]) {
+            var dashArray = [];
+            var svgWidth= dimensions[2] // svg path length
+            var sep = style[STRAIGHTDASHSTYLE].indexOf(",") === -1 ? " " : ",",
+             parts = style[STRAIGHTDASHSTYLE].split(sep),
+             straightLine = parseInt(parts[0]),
+             dashLine= parseInt(parts[1]),
+             dashSpace = parseInt(parts[2]);
+            var remainingLen = 0;
+            remainingLen = svgWidth-straightLine-dashSpace;
+            dashArray.push(straightLine);
+            dashArray.push(dashSpace);
+            var loop=remainingLen/(dashLine+dashSpace);
 
+            for (i = 0; i < loop; i++) {
+              dashArray.push(dashLine);
+              dashArray.push(dashSpace);
+            }
+            node.setAttribute(STROKE_DASHARRAY, dashArray);
+          }
             // in SVG there is a stroke-dasharray attribute we can set, and its syntax looks like
             // the syntax in VML but is actually kind of nasty: values are given in the pixel
             // coordinate space, whereas in VML they are multiples of the width of the stroked
