@@ -13894,7 +13894,7 @@
           // takes 3 values straightLine,dashLine,dashSpace
           if (style[STRAIGHTDASHSTYLE] && style[LINE_WIDTH] && !style[STROKE_DASHARRAY]) {
             var dashArray = [];
-            var svgWidth= dimensions[2] // svg path length
+            var svgWidth= dimensions[2]+dimensions[3] // svg path length
             var sep = style[STRAIGHTDASHSTYLE].indexOf(",") === -1 ? " " : ",",
              parts = style[STRAIGHTDASHSTYLE].split(sep),
              straightLine = parseInt(parts[0]),
